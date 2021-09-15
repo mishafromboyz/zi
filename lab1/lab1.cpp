@@ -83,7 +83,7 @@ ulong DH()
 }
 
 
-ulong DH(ulong q)
+ulong DH(ulong q) //keygen
 {
     srand(time(NULL));
     ulong p = 2*q + 1;
@@ -110,33 +110,64 @@ ulong DH(ulong q)
 
 ulong euc(ulong a, ulong b) //calculates greatest common denominator
 {
-    ulong temp;
-    for(; b > 0; a = temp)
+    ulong u[2], v[2];
+    
+    u[0] = a;
+    u[1] = 1;
+    u[2] = 0;
+
+    v[0] = b;
+    v[1] = 0;
+    v[2] = 1;
+
+    ulong q;
+    ulong t[2];
+
+    while (v[0] != 0)
     {
-        temp = b;
-        b = a%b;
+        short i;
+        q = floor(u[0]/v[0]);
+        for (i = 0; i < 3; i++)
+        {
+            t[i] = u[i] - q*v[i];
+            u[i] = v[i];
+            v[i] = t[i];
+        }
+        return (a*u[1] + b*u[2]);
     }
-    return a;
-}
-
-
-ulong babyGiantStep(ulong g, ulong h, ulong n)
-{
-    ulong output;
-}
-
-
-int main()
-{
-    /*ulong base, val, mod; //quickmodexp test
-    cin >> base;
-    cin >> val;
-    cin >> mod;
-    ulong ans = quickModExp(base, val, mod);*/ 
-
-    ulong q = 11;
-    ulong ans = DH(q);
-
-    cout << ans << endl;
+    cout << "hueta\n";
     return 0;
 }
+
+
+ulong giantBaby(ulong a, ulong p, ulong y) //a base p mod y ans
+{
+    ulong x; //value, output
+    ulong m = (ulong)sqrt(p) + 1;
+    ulong k = m;
+
+    ulong baby[m];
+    int i;
+    for (i = 0; i < m; i++)
+    {
+        baby[i] = ((ulong)(y * pow(a, i)))%p;
+    }
+
+    ulong giant[k];
+    int j;
+    for(j=0; j < k; j++)
+    {
+        giant[j] = quickModExp(a, m, p); 
+        for(i = 0; i<m; i++)
+        {
+            if (giant[j] == baby[i])
+            {
+                j++;
+                return (i*m - j);
+            }
+        }
+    }
+    cout << "hueta\n";
+    return 0;
+}
+
