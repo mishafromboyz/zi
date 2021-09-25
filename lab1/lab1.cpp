@@ -108,9 +108,9 @@ ulong DH(ulong q) //keygen
 }
 
 
-ulong euc(ulong a, ulong b) //calculates greatest common denominator
+ulong euc(long a, long b) //calculates greatest common denominator
 {
-    ulong u[2], v[2];
+    long u[3], v[3];
     
     u[0] = a;
     u[1] = 1;
@@ -120,23 +120,36 @@ ulong euc(ulong a, ulong b) //calculates greatest common denominator
     v[1] = 0;
     v[2] = 1;
 
-    ulong q;
-    ulong t[2];
+    long q;
+    long t[3];
 
+    short i = 0;
+    short counter = 1;
     while (v[0] != 0)
     {
-        short i;
-        q = floor(u[0]/v[0]);
+        q = u[0]/v[0];
+        cout << endl << counter << "cycle\n";
+        counter++;
         for (i = 0; i < 3; i++)
         {
+            cout << "t[" << i << "] = " << u[i] << "-" << q << "*" << v[i] << endl;
             t[i] = u[i] - q*v[i];
+            cout << "t[" << i << "] = " << t[i] << endl;
             u[i] = v[i];
+            cout << "u[" << i << "] = " << u[i] << endl;
             v[i] = t[i];
+            cout << "v[" << i << "] = " << v[i] << endl;
+
         }
-        return (a*u[1] + b*u[2]);
+            
     }
-    cout << "hueta\n";
-    return 0;
+    ulong check = (ulong)min(a, b);
+    ulong ans = a*u[1] + b*u[2];
+    if (ans == check)
+        return 1;
+    return ans;
+
+
 }
 
 

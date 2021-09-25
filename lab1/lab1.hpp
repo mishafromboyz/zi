@@ -14,6 +14,6 @@ ulong primeGen();
 ulong quickModExp(ulong base, ulong val, ulong mod);
 ulong DH();
 ulong DH(ulong q);
-ulong euc(ulong a, ulong b);
+ulong euc(long a, long b);
 ulong giantBaby(ulong a, ulong p, ulong y);
 

@@ -16,10 +16,11 @@ int main()
     ans = DH(q); //dh test
 */
 
-/*  ulong a = 28; //euc test
-    ulong b = 19;
+    ulong a; //euc test
+    ulong b;
+    cin >> a, b;
     ans = euc(a, b);
-*/
+
  
 /*  ulong a = 2; //giantbaby test
     ulong p = 23;
